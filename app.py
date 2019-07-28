@@ -11,9 +11,7 @@ app = Flask(__name__, static_folder='/home/pi/webserver/templates')
 temp_history = []
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.OUT)
-GPIO.output(21, GPIO.LOW)
-time.sleep(3)
-GPIO.output(21, GPIO.HIGH)
+
 
 def check_cpu():
     o = subprocess.Popen(["vcgencmd",  "measure_temp"], stdout=subprocess.PIPE)
@@ -23,24 +21,41 @@ def check_cpu():
     temp_history.append(cpu_temp)
     return cpu_temp
 
+
 def show_cpu_temp_history():
     plt.plot(temp_history)
     plt.ylabel('CPU temperature (C)')
     plt.xlabel('time')
     plt.savefig('templates/cpu_temp_plot.jpg')
-    return None
+
 
 def turn_on_light():
-    # function for LEDs
-    return None
+    GPIO.output(21, GPIO.HIGH)
+
+
+def turn_off_light():
+    GPIO.output(21, GPIO.LOW)
+
 
 @app.route("/")
 @app.route('/index')
 def index():
     return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history())
 
+
+@app.route('/', methods=['GET', 'POST'])
+def leds():
+    form = SentiForm()
+    if form.is_submitted():
+        flash('Prediction: {}'.format(
+            sentiment_prediction(form.text.data, model)))
+        return redirect('/index')
+    return render_template('sentiment-analysis.html', form=form)
+
+
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
-    
+
+
 if __name__ == '__main__':
     main()

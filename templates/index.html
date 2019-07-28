@@ -7,8 +7,11 @@
       <p>It's me, raspberry pi! My CPU temperature is: {{ cpu_temp }}</p>
 	<p>CPU temperature history:</p> 
 	<img src="templates/cpu_temp_plot.jpg" alt="cpu_temp_plot.jpg" height="250" width="250">
-    <form action="light.py">
+    <form action="led_on.py">
         <input type="submit" value="Turn on the light">
-    </form> 
+    </form>
+   <form action="led_off.py">
+        <input type="submit" value="Turn on the light">
+    </form>
    </body>
 </html>
