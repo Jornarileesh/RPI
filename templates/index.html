@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+   <head>
+      <title>My raspberry</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+   <body>
+      <p>It's me, raspberry pi! My CPU temperature is: {{ cpu_temp }}</p>
+	<p>CPU temperature history:</p> 
+	<img src="templates/cpu_temp_plot.jpg" alt="cpu_temp_plot.jpg" height="250" width="250">
+    <form action="light.py">
+        <input type="submit" value="Turn on the light">
+    </form> 
+   </body>
+</html>
