@@ -31,6 +31,7 @@ def show_cpu_temp_history():
     return None
 
 def turn_on_light():
+    # function for LEDs
     return None
 
 @app.route("/")
