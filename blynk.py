@@ -6,8 +6,8 @@ BLYNK_AUTH = 'tLQHdWKu8j0ZyQ_C0H1L1nUVsWI5iKA8'
 # base lib init
 blynk = blynklib.Blynk(BLYNK_AUTH)
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(21, GPIO.OUT)
+# GPIO.setmode(GPIO.BCM)
+# GPIO.setup(21, GPIO.OUT)
 
 WRITE_EVENT_PRINT_MSG = "[WRITE_VIRTUAL_PIN_EVENT] Pin: V{} Value: '{}'"
 
