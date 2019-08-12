@@ -21,7 +21,7 @@ def turn_off_light():
 
 
 pin = 'GP21'
-value = 1
+value = 'HIGH'
 
 
 @blynk.handle_event('write GP21')
