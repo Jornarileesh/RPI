@@ -20,8 +20,9 @@ def turn_off_light():
     GPIO.output(21, GPIO.LOW)
 
 
-@blynk.handle_event('write V4')
+@blynk.handle_event('dupa')
 def write_virtual_pin_handler(pin, value):
+    blynk.virtual_write(pin, 'GP21')
     print(WRITE_EVENT_PRINT_MSG.format(pin, value))
 
 
