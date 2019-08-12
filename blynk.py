@@ -6,7 +6,7 @@ BLYNK_AUTH = 'tLQHdWKu8j0ZyQ_C0H1L1nUVsWI5iKA8'
 # base lib init
 blynk = blynklib.Blynk(BLYNK_AUTH)
 
-# GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BCM)
 # GPIO.setup(21, GPIO.OUT)
 
 WRITE_EVENT_PRINT_MSG = "[WRITE_VIRTUAL_PIN_EVENT] Pin: V{} Value: '{}'"
@@ -20,9 +20,13 @@ def turn_off_light():
     GPIO.output(21, GPIO.LOW)
 
 
-@blynk.handle_event('dupa')
+pin = GPIO.setup(21, GPIO.OUT)
+value = 1
+
+
+@blynk.handle_event('write GP21')
 def write_virtual_pin_handler(pin, value):
-    blynk.virtual_write(pin, 'GP21')
+    blynk.virtual_write(pin, value)
     print(WRITE_EVENT_PRINT_MSG.format(pin, value))
 
 
