@@ -20,7 +20,7 @@ def turn_off_light():
     GPIO.output(21, GPIO.LOW)
 
 
-pin = GPIO.setup(21, GPIO.OUT)
+pin = 'GP21'
 value = 1
 
 
