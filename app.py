@@ -11,6 +11,9 @@ app = Flask(__name__, static_folder='/home/pi/webserver/templates')
 temp_history = []
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.OUT)
+GPIO.output(21, GPIO.HIGH)
+time.sleep(3)
+GPIO.output(21, GPIO.LOW)
 
 
 def check_cpu():
