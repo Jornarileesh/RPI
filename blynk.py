@@ -24,7 +24,7 @@ pin = 'GP21'
 value = 'HIGH'
 
 
-@blynk.handle_event('write GP21')
+@blynk.handle_event('LED ON')
 def write_virtual_pin_handler(pin, value):
     blynk.virtual_write(pin, value)
     print(WRITE_EVENT_PRINT_MSG.format(pin, value))
