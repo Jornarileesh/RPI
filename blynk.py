@@ -26,7 +26,7 @@ def read_virtual_pin_handler():
 
 while True:
     blynk.run()
-
+    read_virtual_pin_handler()
 
 # dioda - pin 40 (GPIO21)
 # masa pin 39
