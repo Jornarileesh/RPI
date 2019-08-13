@@ -8,6 +8,7 @@ blynk = blynklib.Blynk(BLYNK_AUTH)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.OUT)
+turn_off_light():
 
 
 def turn_on_light():
