@@ -18,15 +18,18 @@ def turn_off_light():
     GPIO.output(21, GPIO.LOW)
 
 
-@blynk.handle_event('read GP21')
-def read_virtual_pin_handler():
-    blynk.virtual_write(1, 1)
-    turn_on_light()
+@blynk.handle_event('write GP21')
+def write_virtual_pin_handler(pin, value):
+    if value == 1:
+        blynk.virtual_write(21, 1)
+        turn_on_light()
+    elif value == 0:
+        blynk.virtual_write(21, 0)
+        turn_on_light()
 
 
 while True:
     blynk.run()
-    read_virtual_pin_handler()
 
 # dioda - pin 40 (GPIO21)
 # masa pin 39
