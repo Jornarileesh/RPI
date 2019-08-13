@@ -25,7 +25,7 @@ def write_virtual_pin_handler(pin, value):
         turn_on_light()
     elif value == 0:
         blynk.virtual_write(21, 0)
-        turn_on_light()
+        turn_off_light()
 
 
 while True:
