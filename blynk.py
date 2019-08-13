@@ -18,12 +18,9 @@ def turn_off_light():
     GPIO.output(21, GPIO.LOW)
 
 
-pin = GPIO.setup(21, GPIO.OUT)
-value = 'HIGH'
-
-
-@blynk.handle_event('LED ON')
-def write_virtual_pin_handler():
+@blynk.handle_event('read GP21')
+def read_virtual_pin_handler():
+    blynk.virtual_write(1, 1)
     turn_on_light()
 
 
