@@ -52,8 +52,8 @@ def write_temp_humid():
         blynk.virtual_write(2, humidity)
         blynk.virtual_write(3, temperature)
     else:
-        blynk.virtual_write(2, 0)
-        blynk.virtual_write(3, 0)
+        # blynk.virtual_write(2, 0)
+        # blynk.virtual_write(3, 0)
         print('None error')
 
 
