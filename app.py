@@ -7,6 +7,8 @@ import time
 from datetime import datetime
 from picamera import PiCamera
 import random
+from camera_pi import Camera
+
 
 app = Flask(__name__, static_folder='/home/pi/RPI/templates')
 # run_with_ngrok(app)
@@ -73,6 +75,19 @@ def photo_gallery():
 def video_gallery():
     id = random.randint(1, 10000)
     return render_template('video_gallery.html', id=id)
+
+def gen(camera):
+    """Video streaming generator function."""
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+@app.route('/video_feed')
+def video_feed():
+    """Video streaming route. Put this in the src attribute of an img tag."""
+    return Response(gen(Camera()),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
