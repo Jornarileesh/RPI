@@ -8,7 +8,7 @@ from datetime import datetime
 from picamera import PiCamera
 import random
 
-app = Flask(__name__, static_folder='/home/pi/webserver/templates')
+app = Flask(__name__, static_folder='/home/pi/RPI/templates')
 # run_with_ngrok(app)
 
 temp_history = []
@@ -26,7 +26,7 @@ def show_cpu_temp_history():
     plt.plot(temp_history)
     plt.ylabel('CPU temperature (C)')
     plt.xlabel('time')
-    plt.savefig('/home/pi/webserver/templates/cpu_temp_plot.jpg')
+    plt.savefig('/home/pi/RPI/templates/cpu_temp_plot.jpg')
     return None
 
 def turn_on_light():
@@ -48,16 +48,31 @@ def camera():
     
     camera.start_preview()
     time.sleep(1)
-    camera.capture('/home/pi/webserver/templates/photo.jpg')
+    camera.capture('/home/pi/RPI/templates/photo.jpg')
     camera.stop_preview()
     camera.close()
     return render_template('camera.html')
 
+@app.route('/video')
+def video():
+    camera = PiCamera()
+    camera.start_preview()
+    camera.start_recording('/home/pi/RPI/templates/video.h264')
+    time.sleep(10)
+    camera.stop_recording()
+    camera.stop_preview()
+    camera.close()
+    return render_template('video.html')
 
-@app.route('/gallery')
-def gallery():
+@app.route('/photo_gallery')
+def photo_gallery():
     id = random.randint(1, 10000)
-    return render_template('gallery.html', id=id)
+    return render_template('photo_gallery.html', id=id)
+
+@app.route('/video_gallery')
+def video_gallery():
+    id = random.randint(1, 10000)
+    return render_template('video_gallery.html', id=id)
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)

@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>My raspberry</title>
+      <title>Gallery</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
    </head>
    <body>
       <form>
          <input type="button" value="BACK" onclick="window.location.href='/'" />
       </form>
-      <p>Click!</p>
+      <form>
+            <input type="button" value="TAKE A PHOTO" onclick="window.location.href='/camera'" />
+      </form>
+      <img src="templates/photo.jpg?{{ id }}" alt="photo_is_here.jpg" height="260" width="360">
       <table border="0">
          <tr>
              <td>
