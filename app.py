@@ -57,7 +57,7 @@ def camera():
 def video():
     camera = PiCamera()
     camera.start_preview()
-    camera.start_recording('/home/pi/RPI/templates/video.mp4')
+    camera.start_recording('/home/pi/RPI/templates/video.mjpeg')
     time.sleep(10)
     camera.stop_recording()
     camera.stop_preview()
