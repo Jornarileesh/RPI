@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>My raspberry</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <p>It's me, raspberry pi! My CPU temperature is: {{ cpu_temp }}</p>
-    <p>CPU temperature history:</p> 
-    <img src="templates/cpu_temp_plot.jpg?{{ id }}<" alt="cpu_temp_plot.jpg" height="250" width="250">
-    <form>
-        <input type="button" value="TAKE A PHOTO" onclick="window.location.href='/camera'" />
-    </form>   
-    <p><a href="/camera">TAKE A PHOTO</a></p> 
-    <br>
-    <p><a href="/gallery">SHOW GALLERY</a></p> 
-</body>
+    <head>
+        <title>My raspberry</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <p>It's me, raspberry pi! My CPU temperature is: {{ cpu_temp }}</p>
+        <p>CPU temperature history:</p> 
+        <img src="templates/cpu_temp_plot.jpg?{{ id }}<" alt="cpu_temp_plot.jpg" height="250" width="250">
+        <form>
+            <input type="button" value="TAKE A PHOTO" onclick="window.location.href='/camera'" />
+        </form>
+        <form>
+            <input type="button" value="SHOW GALLERY" onclick="window.location.href='/gallery'" />
+        </form>  
+    </body>
 </html>
