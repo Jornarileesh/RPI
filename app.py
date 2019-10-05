@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, Response
 # from flask_ngrok import run_with_ngrok
 import subprocess
 import matplotlib.pyplot as plt
@@ -57,13 +57,13 @@ def camera():
 
 @app.route('/video')
 def video():
-    camera = PiCamera()
-    camera.start_preview()
-    camera.start_recording('/home/pi/RPI/templates/video.mjpeg')
-    time.sleep(10)
-    camera.stop_recording()
-    camera.stop_preview()
-    camera.close()
+    # camera = PiCamera()
+    # camera.start_preview()
+    # camera.start_recording('/home/pi/RPI/templates/video.mjpeg')
+    # time.sleep(10)
+    # camera.stop_recording()
+    # camera.stop_preview()
+    # camera.close()
     return render_template('video.html')
 
 @app.route('/photo_gallery')
