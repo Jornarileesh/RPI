@@ -1,19 +1,17 @@
-from flask import Flask, render_template
+rom flask import Flask, render_template
 # from flask_ngrok import run_with_ngrok
 import subprocess
 import matplotlib.pyplot as plt
 import RPi.GPIO as GPIO
 import time
+from datetime import datetime
+from picamera import PiCamera
+import random
 
 app = Flask(__name__, static_folder='/home/pi/webserver/templates')
 # run_with_ngrok(app)
 
 temp_history = []
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(21, GPIO.OUT)
-GPIO.output(21, GPIO.HIGH)
-time.sleep(3)
-GPIO.output(21, GPIO.LOW)
 
 
 def check_cpu():
@@ -24,41 +22,45 @@ def check_cpu():
     temp_history.append(cpu_temp)
     return cpu_temp
 
-
 def show_cpu_temp_history():
     plt.plot(temp_history)
     plt.ylabel('CPU temperature (C)')
     plt.xlabel('time')
-    plt.savefig('templates/cpu_temp_plot.jpg')
-
+    plt.savefig('/home/pi/webserver/templates/cpu_temp_plot.jpg')
+    return None
 
 def turn_on_light():
-    GPIO.output(21, GPIO.HIGH)
-
-
-def turn_off_light():
-    GPIO.output(21, GPIO.LOW)
-
+    return None
 
 @app.route("/")
 @app.route('/index')
 def index():
-    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history())
+    id = random.randint(1, 10000)
+    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id)
+
+@app.route('/camera')
+def camera():
+    camera = PiCamera()
+    camera.rotation = 180
+    camera.resolution = (800, 600)
+    camera.framerate = 30
+    # camera.contrast = 80
+    
+    camera.start_preview()
+    time.sleep(1)
+    camera.capture('/home/pi/webserver/templates/photo.jpg')
+    camera.stop_preview()
+    camera.close()
+    return render_template('camera.html')
 
 
-@app.route('/', methods=['GET', 'POST'])
-def leds():
-    form = SentiForm()
-    if form.is_submitted():
-        flash('Prediction: {}'.format(
-            sentiment_prediction(form.text.data, model)))
-        return redirect('/index')
-    return render_template('sentiment-analysis.html', form=form)
-
+@app.route('/gallery')
+def gallery():
+    id = random.randint(1, 10000)
+    return render_template('gallery.html', id=id)
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
-
-
+    
 if __name__ == '__main__':
     main()
