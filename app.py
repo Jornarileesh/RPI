@@ -55,7 +55,6 @@ def camera():
 
 @app.route('/video')
 def video():
-    render_template('video.html')
     camera = PiCamera()
     camera.start_preview()
     camera.start_recording('/home/pi/RPI/templates/video.mjpeg')
@@ -63,6 +62,7 @@ def video():
     # camera.stop_recording()
     camera.stop_preview()
     camera.close()
+    return render_template('video.html')
 
 @app.route('/photo_gallery')
 def photo_gallery():
