@@ -9,10 +9,9 @@
          <input type="button" value="BACK" onclick="window.location.href='/'" />
       </form>
       <p>Click!</p>
-      <video width="360" controls>
-            <source src="templates/video.mjpeg?{{ id }}" type="video/mjpeg">
-            Your browser does not support HTML5 video.
-        </video>
+      <video width="360" src="templates/video.mjpeg?{{ id }}" controls>
+        Your browser does not support the <code>video</code> element.
+     </video>
       <table border="0">
          <tr>
              <td>
