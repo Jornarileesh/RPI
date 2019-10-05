@@ -16,9 +16,6 @@ blynk = blynklib.Blynk(BLYNK_AUTH,
 
 # timer = blynktimer.Timer()
 
-WRITE_EVENT_PRINT_MSG = "[WRITE_VIRTUAL_PIN_0_EVENT] Pin: V{} Value: '{}'"
-WRITE_EVENT_PRINT_MSG2 = "[WRITE_VIRTUAL_PIN_1_EVENT] Pin: V{} Value: '{}'"
-
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(21, GPIO.OUT)
 GPIO.setup(4, GPIO.OUT)
@@ -30,7 +27,6 @@ time.sleep(1)
 GPIO.output(21, GPIO.LOW)
 
 dht11_sensor = Adafruit_DHT.DHT11
-
 
 @blynk.handle_event('write V0')
 def write_virtual_pin_handler(pin, value):
@@ -60,4 +56,3 @@ def write_temp_humid():
 while True:
     blynk.run()
     write_temp_humid()
-
