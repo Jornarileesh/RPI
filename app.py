@@ -93,14 +93,14 @@ def video_feed():
 @app.route('/video_stream')
 def video_stream():
     with PiCamera() as camera:
-    stream = io.BytesIO()
-    for foo in camera.capture_continuous(stream, format='jpeg'):
-        # Truncate the stream to the current position (in case
-        # prior iterations output a longer image)
-        stream.truncate()
-        stream.seek(0)
-        if process(stream):
-            break
+        stream = io.BytesIO()
+        for foo in camera.capture_continuous(stream, format='jpeg'):
+            # Truncate the stream to the current position (in case
+            # prior iterations output a longer image)
+            stream.truncate()
+            stream.seek(0)
+            if process(stream):
+                break
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
