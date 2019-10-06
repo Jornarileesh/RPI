@@ -87,10 +87,9 @@ def gen(camera):
 @app.route('/video_feed')
 def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(Camera()),
+    return Response(video_stream()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/video_stream')
 def video_stream():
     with PiCamera() as camera:
         stream = io.BytesIO()
@@ -99,8 +98,6 @@ def video_stream():
             # prior iterations output a longer image)
             stream.truncate()
             stream.seek(0)
-            if video_feed(stream):
-                break
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
