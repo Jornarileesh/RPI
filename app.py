@@ -8,6 +8,7 @@ from datetime import datetime
 from picamera import PiCamera
 import random
 from camera_pi import Camera
+import io
 
 
 app = Flask(__name__, static_folder='/home/pi/RPI/templates')
@@ -88,6 +89,18 @@ def video_feed():
     """Video streaming route. Put this in the src attribute of an img tag."""
     return Response(gen(Camera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/video_stream')
+def video_stream():
+    with PiCamera() as camera:
+    stream = io.BytesIO()
+    for foo in camera.capture_continuous(stream, format='jpeg'):
+        # Truncate the stream to the current position (in case
+        # prior iterations output a longer image)
+        stream.truncate()
+        stream.seek(0)
+        if process(stream):
+            break
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
