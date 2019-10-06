@@ -99,7 +99,7 @@ def video_stream():
             # prior iterations output a longer image)
             stream.truncate()
             stream.seek(0)
-            if process(stream):
+            if video_feed(stream):
                 break
 
 def main():
