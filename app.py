@@ -57,10 +57,11 @@ def camera():
 
     camera.start_preview()
     time.sleep(1)
-    camera.capture('/home/pi/RPI/templates/photo.jpg')
+    date_and_time, today = now()
+    camera.capture('/home/pi/RPI/templates/photo_{}.jpg'.format(date_and_time))
     camera.stop_preview()
     camera.close()
-    return render_template('camera.html')
+    return render_template('photo_gallery.html', date_and_time=date_and_time)
 
 @app.route('/loop_camera')
 def loop_camera():
@@ -79,8 +80,7 @@ def loop_camera():
 
 @app.route('/photo_gallery')
 def photo_gallery():
-    id = random.randint(1, 10000)
-    return render_template('photo_gallery.html', id=id)
+    return render_template('photo_gallery.html')
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
