@@ -57,8 +57,6 @@ def camera():
     camera = PiCamera()
     camera.rotation = 180
     camera.resolution = (800, 600)
-    camera.framerate = 30
-    # camera.contrast = 80
 
     camera.start_preview()
     time.sleep(1) # warming up
@@ -73,19 +71,17 @@ def loop_camera():
     camera = PiCamera()
     camera.rotation = 180
     camera.resolution = (800, 600)
-    camera.framerate = 30
-    # camera.contrast = 80
 
-    today = date()
-    directory_path = '/home/pi/RPI/templates/loop_photos/{}'.format(today)
+    date_and_time = now()
+    directory_path = '/home/pi/RPI/templates/loop_photos/{}'.format(date_and_time)
 
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
     camera.start_preview()
-    for i in range(60):
+    for i in range(30):
         time.sleep(1) # warming up / time to save file
-        camera.capture('/home/pi/RPI/templates/loop_photos/{}/loop_photo_{}.jpg'.format(today, i))
+        camera.capture('/home/pi/RPI/templates/loop_photos/{}/loop_photo_{}.jpg'.format(date_and_time, i))
     camera.stop_preview()
     camera.close()
     return render_template('photo_gallery.html')
