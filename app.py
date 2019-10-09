@@ -18,8 +18,12 @@ temp_history = []
 
 def now():
     ts = time.time()
-    now = datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-    return now
+    date_and_time = datetime.fromtimestamp(ts).strftime('%Y-%m-%d-%H-%M-%S')
+    date = datetime.fromtimestamp(ts).strftime('%Y-%m-%d')
+    return date_and_time, date
+
+def generate_id():
+    return random.randint(1, 100000)
 
 def check_cpu():
     o = subprocess.Popen(["vcgencmd",  "measure_temp"], stdout=subprocess.PIPE)
@@ -39,8 +43,9 @@ def show_cpu_temp_history():
 @app.route("/")
 @app.route('/index')
 def index():
-    id = random.randint(1, 10000)
-    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id, now=now())
+    date_and_time, today = now()
+    id = generate_id()
+    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id, today=today)
 
 @app.route('/camera')
 def camera():
