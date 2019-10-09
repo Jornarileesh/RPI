@@ -40,7 +40,7 @@ def show_cpu_temp_history():
 @app.route('/index')
 def index():
     id = random.randint(1, 10000)
-    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id, date=now)
+    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id, date=now())
 
 @app.route('/camera')
 def camera():
