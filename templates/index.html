@@ -5,7 +5,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <p>It's me, raspberry pi! My CPU temperature is: {{ cpu_temp }}</p>
+        <p>It's me, raspberry pi! Today is: {{ now }}</p> 
+
+        <p>My CPU temperature is: {{ cpu_temp }}</p>
         <p>CPU temperature history:</p> 
         <img src="templates/cpu_temp_plot.jpg?{{ id }}<" alt="cpu_temp_plot.jpg" height="250" width="250">
         <table border="0">
@@ -18,18 +20,6 @@
                 <td>
                     <form>
                         <input type="button" value="SHOW PHOTO GALLERY" onclick="window.location.href='/photo_gallery'" />
-                    </form>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <form>
-                        <input type="button" value="TAKE A VIDEO" onclick="window.location.href='/video'" />
-                    </form>
-                </td>
-                <td>
-                    <form>
-                        <input type="button" value="SHOW VIDEO GALLERY" onclick="window.location.href='/video_gallery'" />
                     </form>
                 </td>
             </tr>

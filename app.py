@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 import RPi.GPIO as GPIO
 import time
 from datetime import datetime
+import time
 from picamera import PiCamera
 import random
-from camera_pi import Camera
 import io
 
 
@@ -15,6 +15,8 @@ app = Flask(__name__, static_folder='/home/pi/RPI/templates')
 # run_with_ngrok(app)
 
 temp_history = []
+ts = time.time()
+now = datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
 
 def check_cpu():
@@ -32,14 +34,11 @@ def show_cpu_temp_history():
     plt.savefig('/home/pi/RPI/templates/cpu_temp_plot.jpg')
     return None
 
-def turn_on_light():
-    return None
-
 @app.route("/")
 @app.route('/index')
 def index():
     id = random.randint(1, 10000)
-    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id)
+    return render_template('index.html', cpu_temp=check_cpu(), cpu_temp_history=show_cpu_temp_history(), id=id, date=now)
 
 @app.route('/camera')
 def camera():
@@ -48,7 +47,7 @@ def camera():
     camera.resolution = (800, 600)
     camera.framerate = 30
     # camera.contrast = 80
-    
+
     camera.start_preview()
     time.sleep(1)
     camera.capture('/home/pi/RPI/templates/photo.jpg')
@@ -56,38 +55,25 @@ def camera():
     camera.close()
     return render_template('camera.html')
 
-@app.route('/video')
-def video():
-    # camera = PiCamera()
-    # camera.start_preview()
-    # camera.start_recording('/home/pi/RPI/templates/video.mjpeg')
-    # time.sleep(10)
-    # camera.stop_recording()
-    # camera.stop_preview()
-    # camera.close()
-    return render_template('video.html')
+@app.route('/loop_camera')
+def loop_camera():
+    camera = PiCamera()
+    camera.rotation = 180
+    camera.resolution = (800, 600)
+    camera.framerate = 30
+    # camera.contrast = 80
+
+    camera.start_preview()
+    time.sleep(1)
+    camera.capture('/home/pi/RPI/templates/photo.jpg')
+    camera.stop_preview()
+    camera.close()
+    return render_template('camera.html')
 
 @app.route('/photo_gallery')
 def photo_gallery():
     id = random.randint(1, 10000)
     return render_template('photo_gallery.html', id=id)
-
-@app.route('/video_gallery')
-def video_gallery():
-    id = random.randint(1, 10000)
-    return render_template('video_gallery.html', id=id)
-
-def gen(camera):
-    """Video streaming generator function."""
-    while True:
-        frame = camera.get_frame()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-@app.route('/video_feed')
-def video_feed():
-    """Video streaming route. Put this in the src attribute of an img tag."""
-    return Response(gen(Camera()), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
