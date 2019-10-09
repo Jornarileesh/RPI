@@ -15,9 +15,11 @@ app = Flask(__name__, static_folder='/home/pi/RPI/templates')
 # run_with_ngrok(app)
 
 temp_history = []
-ts = time.time()
-now = datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
 
+def now():
+    ts = time.time()
+    now = datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+    return now
 
 def check_cpu():
     o = subprocess.Popen(["vcgencmd",  "measure_temp"], stdout=subprocess.PIPE)
