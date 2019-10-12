@@ -81,7 +81,7 @@ def loop_camera():
     camera.start_preview()
     for i in range(30):
         time.sleep(1) # warming up / time to save file
-        camera.capture('/home/pi/RPI/templates/loop_photos/{}/loop_photo_{}.jpg'.format(date_and_time, i))
+        camera.capture('/home/pi/RPI/templates/loop_photos/{}/{}.jpg'.format(date_and_time, i))
     camera.stop_preview()
     camera.close()
     return render_template('photo_gallery.html')
