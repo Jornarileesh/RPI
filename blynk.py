@@ -31,7 +31,6 @@ dht11_sensor = Adafruit_DHT.DHT11
 @blynk.handle_event('write V0')
 def write_virtual_pin_handler(pin, value):
     # blynk.virtual_write(1, 1)
-    print(WRITE_EVENT_PRINT_MSG.format(pin, value[0]))
     if value[0] == '1':
         GPIO.output(21, GPIO.HIGH)
         print(1)
@@ -53,6 +52,7 @@ def write_temp_humid():
         print('None error')
 
 
+blynk.run()
+
 while True:
-    blynk.run()
     write_temp_humid()
