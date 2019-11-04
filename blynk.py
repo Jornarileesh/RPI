@@ -53,5 +53,5 @@ def write_temp_humid():
 
 
 while True:
-    write_temp_humid()
     blynk.run()
+    write_temp_humid()
