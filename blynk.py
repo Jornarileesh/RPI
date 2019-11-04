@@ -52,7 +52,6 @@ def write_temp_humid():
         print('None error')
 
 
-blynk.run()
-
 while True:
     write_temp_humid()
+    blynk.run()
