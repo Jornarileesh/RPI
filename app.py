@@ -10,10 +10,13 @@ from picamera import PiCamera
 import random
 import io
 import os
+import dropbox
 
 
 app = Flask(__name__, static_folder='/home/pi/RPI/templates')
 # run_with_ngrok(app)
+
+dbx = dropbox.Dropbox('xxx')
 
 temp_history = []
 
@@ -64,6 +67,10 @@ def camera():
     camera.capture('/home/pi/RPI/templates/photos/photo_{}.jpg'.format(date_and_time))
     camera.stop_preview()
     camera.close()
+
+    with open(b'/home/pi/RPI/templates/photos/photo_{}.jpg'.format(date_and_time)', 'rb') as f:
+        dbx.files_upload(f.read(), '/photo_{}.jpg'.format(date_and_time)')
+
     return render_template('photo_gallery.html', date_and_time=date_and_time)
 
 @app.route('/loop_camera')
