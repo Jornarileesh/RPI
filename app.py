@@ -68,7 +68,7 @@ def camera():
     camera.stop_preview()
     camera.close()
 
-    with open(b'/home/pi/RPI/templates/photos/photo_{}.jpg'.format(date_and_time)', 'rb') as f:
+    with open(b('/home/pi/RPI/templates/photos/photo_{}.jpg'.format(date_and_time)', 'rb') as f:
         dbx.files_upload(f.read(), '/photo_{}.jpg'.format(date_and_time)')
 
     return render_template('photo_gallery.html', date_and_time=date_and_time)
