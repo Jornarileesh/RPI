@@ -11,6 +11,7 @@ import random
 import io
 import os
 import dropbox
+import requests
 
 
 app = Flask(__name__, static_folder='/home/pi/RPI/templates')
@@ -96,6 +97,14 @@ def loop_camera():
 @app.route('/photo_gallery')
 def photo_gallery():
     return render_template('photo_gallery.html')
+
+@app.route('/esp-led-on')
+def esp_led_on():
+    requests.post('192.168.0.50/?led=on')
+
+@app.route('/esp-led-off')
+def esp_led_off():
+    requests.post('192.168.0.50/?led=off')
 
 def main():
     app.run(host='127.0.0.1', port=80, debug=True)
