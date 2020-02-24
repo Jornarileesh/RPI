@@ -1,34 +1,34 @@
 # RPI
 
 Instalacja Raspbiana:
-<o>
+<ul>
   <li>...</li>
-</o>
+</ul>
 
 Instalacja programów z konsoli:
-<o>
+<ul>
   <li>...</li>
-</o>
+</ul>
 
 Instalacja bibliotek pythonowych:
-<o>
+<ul>
   <li>...</li>
-</o>
+</ul>
 
 Zarzązanie środowiskami pythona
-<o>
+<ul>
   <li>...</li>
-</o>
+</ul>
 
 
 # Wemos D1 Mini V2 (ESP 8266)
 
 Instalacja MicroPython:
-<o>
+<ul>
   <li>...</li>
-</o>
+</ul>
 
 Wgrywanie własnego kodu:
-<o>
+<ul>
   <li>...</li>
-</o>
+</ul>
